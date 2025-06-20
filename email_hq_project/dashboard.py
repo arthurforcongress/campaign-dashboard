@@ -98,6 +98,7 @@ st.markdown("""
     ">
         Bold Progressive Change Starts Here: The Digital War Room for CA-34
     </p>
+    
 </div>
 """, unsafe_allow_html=True)
 
