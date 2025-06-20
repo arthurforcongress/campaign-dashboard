@@ -173,7 +173,7 @@ with tabs[4]:
             st.dataframe(df)
 
 # === LOGS === #
-with tabs[5]:
+with tabs[5]: 
     st.subheader("📊 Dispatch Logs")
     if os.path.exists("email_log.txt"):
         with open("email_log.txt", "r") as log:
