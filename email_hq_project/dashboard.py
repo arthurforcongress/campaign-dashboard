@@ -197,4 +197,5 @@ with tabs[5]:
             st.text_area("📞 Call/SMS Log", value=log.read(), height=300)
 
 # === NOTES === #
-with tabs[6]:
+with tabs[6]: 
+    
