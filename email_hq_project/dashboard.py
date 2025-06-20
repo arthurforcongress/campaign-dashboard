@@ -195,21 +195,20 @@ with tabs[5]:
     if os.path.exists("call_sms_log.txt"):
         with open("call_sms_log.txt", "r") as log:
             st.text_area("📞 Call/SMS Log", value=log.read(), height=300)
+# === NOTES === #
+with tabs[6]:
+    st.subheader("🧠 Strategy Notes")
 
- # === NOTES === #
- with tabs[6]:
-     st.subheader("🧠 Campaign Strategy Notes")
-     notes_path = "strategy_notes.txt"
+    # Load existing notes if they exist
+    existing_notes = ""
+    if os.path.exists("strategy_notes.txt"):
+        with open("strategy_notes.txt", "r") as f:
+            existing_notes = f.read()
 
-     if os.path.exists(notes_path):
-         with open(notes_path, "r") as f:
-             current_notes = f.read()
-     else:
-         current_notes = ""
+    notes = st.text_area("Drop your thoughts, ideas, strategies, or drafts here:", value=existing_notes, height=400)
 
-     updated_notes = st.text_area("📝 Your Notes", current_notes, height=300)
-
-     if st.button("💾 Save Notes"):
-         with open(notes_path, "w") as f:
-             f.write(updated_notes)
-         st.success("✅ Notes saved successfully!")                   
+    if st.button("💾 Save Notes"):
+        with open("strategy_notes.txt", "w") as f:
+            f.write(notes)
+        st.success("Notes saved successfully.")
+        
