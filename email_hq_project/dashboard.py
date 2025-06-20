@@ -194,7 +194,7 @@ with tabs[5]:
             st.text_area("📬 Email Log", value=log.read(), height=300)
     if os.path.exists("call_sms_log.txt"):
         with open("call_sms_log.txt", "r") as log:
-            st.text_area("📞 Call/SMS Log", value=log.read(), height=
+            st.text_area("📞 Call/SMS Log", value=log.read(), height=300)
 
  # === NOTES === #
  with tabs[6]:
