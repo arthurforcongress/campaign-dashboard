@@ -53,8 +53,10 @@ st.markdown("""
         }
         .hero h1 {
             font-size: 3rem;
-            color: #ffffff;
-            text-shadow: 2px 2px #000;
+            background: linear-gradient(90deg, #16a34a, #4ade80);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 2px 2px #00000020;
         }
         .hero p {
             font-size: 1.25rem;
