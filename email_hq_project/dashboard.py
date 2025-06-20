@@ -10,6 +10,7 @@ import uuid
 # === Load .env === #
 load_dotenv()
 
+
 EMAIL_ACCOUNTS = [
     {"label": "Team", "email": os.getenv("EMAIL_1"), "password": os.getenv("PASS_1")},
     {"label": "Press", "email": os.getenv("EMAIL_2"), "password": os.getenv("PASS_2")},
@@ -28,6 +29,22 @@ st.markdown("""
             color: #f5f7fa;
             font-family: 'Segoe UI', sans-serif;
         }
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background-color: #10172a;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #2f3b52;
+            display: flex;
+            justify-content: space-between;
+        }
+        .navbar a {
+            margin-right: 1.5rem;
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: 600;
+        }
         .hero {
             background-image: url('https://arthurdixonforcongress.com/banner.jpg');
             background-size: cover;
@@ -39,7 +56,7 @@ st.markdown("""
             font-size: 3rem;
             background: linear-gradient(90deg, #16a34a, #4ade80);
             -webkit-background-clip: text;
-            background-clip: text;
+            background-clip: text; /* ← Add this line */
             -webkit-text-fill-color: transparent;
             text-shadow: 2px 2px #00000020;
         }
@@ -63,19 +80,6 @@ st.markdown("""
             text-align: center;
             box-shadow: 0 0 10px rgba(255,255,255,0.05);
         }
-        .tab-buttons button {
-            background-color: #1f2937;
-            color: #f0f9ff;
-            padding: 0.75rem 1.5rem;
-            margin: 0.25rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .tab-buttons button:hover {
-            background-color: #2563eb;
-        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -94,23 +98,23 @@ st.markdown("""
     ">
         Bold Progressive Change Starts Here: The Digital War Room for CA-34
     </p>
+    
 </div>
 """, unsafe_allow_html=True)
 
-# === Custom Tab System === #
-tabs = ["Home", "📨 Email Ops", "📞 Calls", "💬 Texts", "📁 Contact Lists", "📊 Logs", "🧠 Strategy Notes"]
-st.markdown('<div class="tab-buttons">' + ''.join([f'<button onclick="window.location.href=' + "'#tab{i}'" + f'">{tab}</button>' for i, tab in enumerate(tabs)]) + '</div>', unsafe_allow_html=True)
+# === Tabs === #
+tabs = st.tabs(["Home", "📨 Email Ops", "📞 Calls", "💬 Texts", "📁 Contact Lists", "📊 Logs", "🧠 Strategy Notes"])
 
-selected_tab = st.selectbox("Select a Section", tabs)
-
-if selected_tab == "Home":
+# === HOME === #
+with tabs[0]:
     col1, col2, col3, col4 = st.columns(4)
     col1.markdown("""<div class='data-box'><h3>📬 Emails Sent</h3><h2>1,447</h2></div>""", unsafe_allow_html=True)
     col2.markdown("""<div class='data-box'><h3>🔥 Open Rate</h3><h2>44.1%</h2></div>""", unsafe_allow_html=True)
     col3.markdown("""<div class='data-box'><h3>💸 Donations</h3><h2>$5,760</h2></div>""", unsafe_allow_html=True)
     col4.markdown("""<div class='data-box'><h3>📉 Bounce Rate</h3><h2>0.7%</h2></div>""", unsafe_allow_html=True)
 
-elif selected_tab == "📨 Email Ops":
+# === EMAIL OPS === #
+with tabs[1]:
     st.subheader("📨 Compose & Send Campaign Email")
     sender_labels = [f"{acc['label']} – {acc['email']}" for acc in EMAIL_ACCOUNTS if acc['email']]
     sender_option = st.selectbox("Choose sender email:", sender_labels)
@@ -143,32 +147,36 @@ Arthur Dixon is rising. Join the movement: https://arthurdixonforcongress.com
         else:
             st.error("Please upload a contact file.")
 
-elif selected_tab == "📞 Calls":
+# === CALL OPS === #
+with tabs[2]:
     st.subheader("📞 Call Tracking")
-    st.number_input("Calls Made Today", min_value=0, value=14)
-    st.number_input("Total Calls to Date", min_value=0, value=103)
-    st.number_input("Donations from Calls", min_value=0, value=5)
-    st.number_input("Volunteers from Calls", min_value=0, value=3)
+    call_count = st.number_input("Calls Made Today", min_value=0, value=14)
+    total_calls = st.number_input("Total Calls to Date", min_value=0, value=103)
+    call_donations = st.number_input("Donations from Calls", min_value=0, value=5)
+    call_signups = st.number_input("Volunteers from Calls", min_value=0, value=3)
     st.info("Phase 2.2 will include autodial, call logging, recording, and live analytics.")
 
-elif selected_tab == "💬 Texts":
+# === TEXT OPS === #
+with tabs[3]:
     st.subheader("💬 SMS Tracking")
-    st.number_input("Texts Sent Today", min_value=0, value=32)
-    st.number_input("Replies Received", min_value=0, value=14)
-    st.number_input("Donations from SMS", min_value=0, value=2)
-    st.number_input("Event RSVPs", min_value=0, value=1)
+    sms_today = st.number_input("Texts Sent Today", min_value=0, value=32)
+    sms_replies = st.number_input("Replies Received", min_value=0, value=14)
+    sms_donations = st.number_input("Donations from SMS", min_value=0, value=2)
+    sms_rsvp = st.number_input("Event RSVPs", min_value=0, value=1)
     st.info("Phase 2.2 will add Twilio Broadcast, Inbox View, and Message Templates")
 
-elif selected_tab == "📁 Contact Lists":
+# === CONTACT LISTS === #
+with tabs[4]:
     st.subheader("📁 Manage Contact Lists")
-    contact_list_file = st.file_uploader("Choose CSV", type="csv")
-    if contact_list_file:
-        name = st.text_input("Name this list (e.g. David Kim Donors)")
-        if name:
-            path = f"contacts/{name}.csv"
-            with open(path, "wb") as f:
-                f.write(contact_list_file.getbuffer())
-            st.success(f"Uploaded and saved as {path}")
+    if st.button("📤 Upload New Contact List"):
+        contact_list_file = st.file_uploader("Choose CSV", type="csv")
+        if contact_list_file:
+            name = st.text_input("Name this list (e.g. David Kim Donors)")
+            if name:
+                path = f"contacts/{name}.csv"
+                with open(path, "wb") as f:
+                    f.write(contact_list_file.getbuffer())
+                st.success(f"Uploaded and saved as {path}")
     else:
         lists = os.listdir("contacts") if os.path.exists("contacts") else []
         st.write("Available Lists:", lists)
@@ -177,7 +185,8 @@ elif selected_tab == "📁 Contact Lists":
             df = pd.read_csv(f"contacts/{chosen_list}")
             st.dataframe(df)
 
-elif selected_tab == "📊 Logs":
+# === LOGS === #
+with tabs[5]: 
     st.subheader("📊 Dispatch Logs")
     if os.path.exists("email_log.txt"):
         with open("email_log.txt", "r") as log:
@@ -186,7 +195,5 @@ elif selected_tab == "📊 Logs":
         with open("call_sms_log.txt", "r") as log:
             st.text_area("📞 Call/SMS Log", value=log.read(), height=300)
 
-elif selected_tab == "🧠 Strategy Notes":
-    st.subheader("🧠 Campaign Notes & Strategy")
-    st.text_area("Brain dump, to-dos, scripts, ideas", height=400)
-    st.button("💾 Save Notes (Coming Soon)")
+# === NOTES === #
+with tabs[6]:
