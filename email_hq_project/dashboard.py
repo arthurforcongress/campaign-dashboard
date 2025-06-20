@@ -55,6 +55,7 @@ st.markdown("""
             font-size: 3rem;
             background: linear-gradient(90deg, #16a34a, #4ade80);
             -webkit-background-clip: text;
+            background-clip: text; /* ← Add this line */
             -webkit-text-fill-color: transparent;
             text-shadow: 2px 2px #00000020;
         }
