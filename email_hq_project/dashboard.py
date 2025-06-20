@@ -86,7 +86,6 @@ st.markdown("""
 st.markdown("""
 <div class="hero">
     <h1>Arthur Dixon for Congress</h1>
-    <p>Bold Progressive Change Starts Here: The Digital War Room for CA-34</p>
     <p style="
         background: linear-gradient(90deg, #4ade80, #16a34a);
         -webkit-background-clip: text;
