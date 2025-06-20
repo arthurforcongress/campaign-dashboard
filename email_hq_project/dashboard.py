@@ -10,6 +10,7 @@ import uuid
 # === Load .env === #
 load_dotenv()
 
+
 EMAIL_ACCOUNTS = [
     {"label": "Team", "email": os.getenv("EMAIL_1"), "password": os.getenv("PASS_1")},
     {"label": "Press", "email": os.getenv("EMAIL_2"), "password": os.getenv("PASS_2")},
