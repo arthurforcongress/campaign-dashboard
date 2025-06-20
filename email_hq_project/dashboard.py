@@ -52,6 +52,7 @@ st.markdown("""
             padding: 6rem 2rem;
             text-align: center;
         }
+        
         .hero h1 {
             font-size: 3rem;
             background: linear-gradient(90deg, #16a34a, #4ade80);
